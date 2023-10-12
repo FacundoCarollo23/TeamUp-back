@@ -1,6 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using TeamUp.DAL;
+using TeamUp.DAL.Interfaces;
+using TeamUp.DAL.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<TeamUpContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("TeamUpSQL")));
+builder.Services.AddTransient<IEventRepository, EventRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
