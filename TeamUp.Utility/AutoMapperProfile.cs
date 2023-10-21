@@ -27,7 +27,7 @@ namespace TeamUp.Utility
                 opt => opt.MapFrom(origin => DateTime.ParseExact(origin.DateOfBirthText, "dd/MM/yyyy", new CultureInfo("es-PE")))
                 );
 
-            CreateMap<User, SesionDTO>()
+           CreateMap<User, SesionDTO>()
                 .ReverseMap();
 
 

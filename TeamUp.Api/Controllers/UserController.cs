@@ -39,7 +39,7 @@ namespace TeamUp.Api.Controllers
         [HttpPost]
         [Route("Login")]
 
-        public async Task<IActionResult> Login([FromBody] LoginDTO login)
+        public async Task<IActionResult> Login(LoginDTO login) //[FromBody]
         {
             var rsp = new Utility.Response<SesionDTO>();
 
