@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace TeamUp.DTO
 {
+    // Esta clase se utiliza para comentar y puntuar eventos.
     public class EventsCommentDTO
     {
         public int EventCommentId { get; set; }
 
         public int EventId { get; set; }
+        public string UserId { get; set; }
 
-        public string UserName { get; set; }    //Matchear el user_id con la tabla USERS para traer el nombre.
+        public string UserIdName { get; set; }    //Matchear el user_id con la tabla USERS para traer el nombre. VER COMO MAPEARLO.
 
         public string? Comment { get; set; }
 
-        public DateTime? DateTime { get; set; } //Hacer una lógica para restar días
+        public string? DateTime { get; set; } //Hacer una lógica para restar días
 
     }
 }
