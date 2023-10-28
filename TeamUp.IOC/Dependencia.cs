@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TeamUp.BLL.Service;
 using TeamUp.BLL.sinNombre;
+using TeamUp.Model;
 using TeamUp.DAL;
 using TeamUp.DAL.Interfaces;
 using TeamUp.DAL.Repository;
