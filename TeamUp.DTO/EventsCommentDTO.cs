@@ -12,7 +12,10 @@ namespace TeamUp.DTO
         public int EventCommentId { get; set; }
 
         public int EventId { get; set; }
-        public string UserId { get; set; }
+
+        public int EventName { get; set; }
+
+        public int UserId { get; set; }
 
         public string UserIdName { get; set; }    //Matchear el user_id con la tabla USERS para traer el nombre. VER COMO MAPEARLO.
 

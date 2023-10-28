@@ -7,9 +7,15 @@
     {
         public int EventId { get; set; }
 
+        public int ActivityId { get; set; }
+
         public string ActivityText { get; set; } //sacaria
 
+        public int DifficultyLevelId { get; set; }
+
         public string DifficultyLevelText { get; set; } //sacaria
+
+        public int? CountryId { get; set; }
 
         public string CountryText { get; set; } //sacaria
 

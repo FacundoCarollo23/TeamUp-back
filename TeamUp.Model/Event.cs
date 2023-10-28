@@ -23,6 +23,8 @@ public partial class Event
 
     public virtual Activity Activity { get; set; } = null!;
 
+    public virtual Country? Country { get; set; }
+
     public virtual DifficultyLevel DifficultyLevel { get; set; } = null!;
 
     public virtual ICollection<EventsComment> EventsComments { get; set; } = new List<EventsComment>();
