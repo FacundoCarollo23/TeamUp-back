@@ -30,7 +30,7 @@ namespace TeamUp.IOC
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IEventService, EventService>();
         }
     }
 }

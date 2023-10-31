@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TeamUp.DTO
 {
     // Esta clase se utiliza para mostrar eventos y datos de un evento.
-    internal class EventDTO
+    public class EventDTO
     {
         public int EventId { get; set; }
 

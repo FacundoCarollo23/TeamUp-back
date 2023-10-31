@@ -20,9 +20,9 @@ builder.Services.InyectarDependencias(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("teamUpPolitica", app =>
+    options.AddPolicy("TeamUpPolitica", app =>
     {
-        app.AllowAnyOrigin()
+        app.WithOrigins("http://localhost/4200")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });

@@ -13,7 +13,7 @@ namespace TeamUp.DTO
 
         public int RolId { get; set; }
 
-        public string rolName { get; set; }
+        public string? RolName { get; set; }
 
         public int EventId { get; set; }
 

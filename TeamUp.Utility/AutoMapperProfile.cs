@@ -14,7 +14,7 @@ namespace TeamUp.Utility
     {
         public AutoMapperProfile()
         {
-
+            #region User
             CreateMap<User, UserDTO>()
                 .ForMember(des =>
                 des.DateOfBirthText,
@@ -29,7 +29,89 @@ namespace TeamUp.Utility
 
            CreateMap<User, SesionDTO>()
                 .ReverseMap();
+            #endregion User
 
+            #region EventUser
+            CreateMap<Event, EventUserDTO>()
+                .ForMember(des =>
+                des.ActivityText,
+                opt => opt.MapFrom(origen => origen.Activity.ActivityName))
+                .ForMember(des =>
+                des.DifficultyLevelText,
+                opt => opt.MapFrom(origen => origen.DifficultyLevel.DifficultyName))
+                .ForMember(des =>
+                des.CountryText,
+                opt => opt.MapFrom(origen => origen.Country.CountryName))
+                .ForMember(des =>
+                des.DateTime,
+                opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy"))
+                );
+
+            CreateMap<EventUserDTO, Event>()
+                .ForMember(destino =>
+                destino.Activity,
+                opt => opt.Ignore())
+                .ForMember(destino =>
+                destino.DifficultyLevel,
+                opt => opt.Ignore())
+                .ForMember(destino =>
+                destino.Country,
+                opt => opt.Ignore()
+                );
+
+            #endregion EventUser
+
+            #region Event
+            CreateMap<Event, EventDTO>()
+               .ForMember(des =>
+               des.ActivityName,
+               opt => opt.MapFrom(origen => origen.Activity.ActivityName))
+               .ForMember(des =>
+               des.DifficultyName,
+               opt => opt.MapFrom(origen => origen.DifficultyLevel.DifficultyName))
+               .ForMember(des =>
+               des.CountryName,
+               opt => opt.MapFrom(origen => origen.Country.CountryName))
+               .ForMember(des =>
+               des.DateTime,
+               opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy"))
+               );
+
+            CreateMap<EventDTO, Event>()
+                .ForMember(destino =>
+                destino.Activity,
+                opt => opt.Ignore())
+                .ForMember(destino =>
+                destino.DifficultyLevel,
+                opt => opt.Ignore())
+                .ForMember(destino =>
+                destino.Country,
+                opt => opt.Ignore()
+                );
+            #endregion Event
+
+            #region EventComment
+            CreateMap<EventsComment, EventsCommentDTO>()
+                .ForMember(des =>
+               des.EventName,
+               opt => opt.MapFrom(origen => origen.Event.EventName))
+               .ForMember(des =>
+               des.UserIdName,
+               opt => opt.MapFrom(origen => origen.User.UserName))
+                .ForMember(des =>
+               des.DateTime,
+               opt => opt.MapFrom(origin => origin.DateTime.Value.ToString("dd/MM/yyyy"))
+               );
+
+            CreateMap<EventsCommentDTO, EventsComment>()
+                .ForMember(destino =>
+                destino.Event,
+                opt => opt.Ignore())
+                .ForMember(destino =>
+                destino.User,
+                opt => opt.Ignore()
+                );
+            #endregion EventComment
 
         }
     }

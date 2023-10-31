@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TeamUp.DAL.Interfaces;
+using TeamUp.DTO;
 
 namespace TeamUp.Api.Controllers
 {
@@ -7,17 +8,30 @@ namespace TeamUp.Api.Controllers
     [ApiController]
     public class EventController : Controller
     {
-        private readonly IEventRepository _eventRepository;
-        public EventController(IEventRepository EventRepository)
+        private readonly IEventService _eventService;
+        public EventController(IEventService EventService)
         {
-            _eventRepository = EventRepository;
+            _eventService = EventService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetEvents()
+        [Route("List")]
+        public async Task<IActionResult> List()
         {
-            var posts = await _eventRepository.GetEvents();
-            return Ok(posts);
+            var rsp = new Utility.Response<List<EventDTO>>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.List();
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
         }
     }
 }
