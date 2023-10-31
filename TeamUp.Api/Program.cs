@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("TeamUpPolitica", app =>
     {
-        app.WithOrigins("http://localhost/4200")
+        app.WithOrigins("http://localhost:4200/")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
