@@ -31,7 +31,7 @@ namespace TeamUp.DTO
 
         public string DateTime { get; set; }
 
-        public virtual ICollection<EventsCommentDTO> EventsComments { get; set; } //Ver si necesitamos hacer Mapper.
+        //public virtual ICollection<EventsCommentDTO> EventsComments { get; set; } //Ver si necesitamos hacer Mapper.
 
         //public virtual ICollection<UsersContadorDTO> UsersContador { get; set; } Para contar la cantidad de participantes
 
