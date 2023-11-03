@@ -23,8 +23,8 @@ namespace TeamUp.BLL.Service
             try
             {
                 var queryEvent = await _EventsCommentRepository.Consult();
-                var listEvent = queryEvent.Include(Event => Event.Event.EventName)
-                    .Include(User => User.User.UserName)
+                var listEvent = queryEvent.Include(Event => Event.Event)
+                    .Include(User => User.User)
                     .ToList();
 
                 return _mapper.Map<List<EventsCommentDTO>>(listEvent);

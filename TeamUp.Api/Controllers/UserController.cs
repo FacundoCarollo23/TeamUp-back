@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TeamUp.BLL.sinNombre;
+using TeamUp.BLL.contract;
 using TeamUp.DTO;
 
 namespace TeamUp.Api.Controllers

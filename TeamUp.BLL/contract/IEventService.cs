@@ -1,7 +1,7 @@
 ﻿using TeamUp.DTO;
 using TeamUp.Model;
 
-namespace TeamUp.DAL.Interfaces
+namespace TeamUp.BLL.contract
 {
     public interface IEventService
     {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TeamUp.BLL.Service;
-using TeamUp.BLL.sinNombre;
+using TeamUp.BLL.contract;
 using TeamUp.DAL;
 using TeamUp.DAL.Interfaces;
 using TeamUp.DAL.Repository;
@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("TeamUpPolitica", app =>
     {
-        app.WithOrigins("http://localhost:4200/")
+        app.WithOrigins("http://localhost:4200")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });

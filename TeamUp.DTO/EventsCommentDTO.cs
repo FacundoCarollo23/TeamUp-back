@@ -13,7 +13,7 @@ namespace TeamUp.DTO
 
         public int EventId { get; set; }
 
-        public int EventName { get; set; }
+        public string EventName { get; set; }
 
         public int UserId { get; set; }
 

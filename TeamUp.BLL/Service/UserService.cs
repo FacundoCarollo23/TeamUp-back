@@ -1,12 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TeamUp.BLL.sinNombre;
+using TeamUp.BLL.contract;
 using TeamUp.DAL.Interfaces;
 using TeamUp.DTO;
 using TeamUp.Model;

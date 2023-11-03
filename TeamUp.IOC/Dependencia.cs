@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamUp.BLL.Service;
-using TeamUp.BLL.sinNombre;
+using TeamUp.BLL.contract;
 using TeamUp.Model;
 using TeamUp.DAL;
 using TeamUp.DAL.Interfaces;
@@ -31,6 +31,7 @@ namespace TeamUp.IOC
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventsCommentService, EventsCommentService>();
         }
     }
 }

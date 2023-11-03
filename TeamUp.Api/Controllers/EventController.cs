@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TeamUp.DAL.Interfaces;
+using TeamUp.BLL.contract;
 using TeamUp.DTO;
 
 namespace TeamUp.Api.Controllers

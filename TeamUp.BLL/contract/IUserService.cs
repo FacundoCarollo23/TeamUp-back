@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TeamUp.DTO;
 
-namespace TeamUp.BLL.sinNombre
+namespace TeamUp.BLL.contract
 {
     public interface IUserService
     {

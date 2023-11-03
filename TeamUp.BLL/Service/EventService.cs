@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TeamUp.DAL.Interfaces;
+using TeamUp.BLL.contract;
 using TeamUp.DTO;
 using TeamUp.Model;
 
