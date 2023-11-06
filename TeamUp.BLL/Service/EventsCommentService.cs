@@ -18,11 +18,17 @@ namespace TeamUp.BLL.Service
             _mapper = mapper;
         }
 
-        public async Task<List<EventsCommentDTO>> List()
+        public async Task<List<EventsCommentDTO>> List(int? userId)
         {
             try
             {
-                var queryEvent = await _EventsCommentRepository.Consult();
+                var queryEvent = await _EventsCommentRepository.Consult(ec => ec.UserId == userId);
+
+                if (userId == 0)
+                {
+                    queryEvent = await _EventsCommentRepository.Consult();
+                }
+
                 var listEvent = queryEvent.Include(Event => Event.Event)
                     .Include(User => User.User)
                     .ToList();

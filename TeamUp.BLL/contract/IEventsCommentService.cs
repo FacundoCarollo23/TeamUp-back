@@ -9,7 +9,7 @@ namespace TeamUp.BLL.contract
 {
     public interface IEventsCommentService
     {
-        Task<List<EventsCommentDTO>> List();
+        Task<List<EventsCommentDTO>> List(int? userId);
         Task<EventsCommentDTO> GetById(int id);
         Task<bool> Delete(int id);
     }
