@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using TeamUp.BLL.contract;
+using TeamUp.BLL.Service;
+using TeamUp.DAL.Interfaces;
 using TeamUp.DTO;
+using TeamUp.Model;
 
 namespace TeamUp.Api.Controllers
 {
@@ -8,6 +12,7 @@ namespace TeamUp.Api.Controllers
     [ApiController]
     public class EventController : Controller
     {
+
         private readonly IEventService _eventService;
         public EventController(IEventService EventService)
         {
@@ -24,6 +29,48 @@ namespace TeamUp.Api.Controllers
             {
                 rsp.status = true;
                 rsp.value = await _eventService.List();
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+        [HttpPost]
+        [Route("Create")]
+
+        public async Task<IActionResult> Create([FromBody] EventDTO @event)
+        {
+            var rsp = new Utility.Response<EventDTO>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.Create(@event);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+        [HttpDelete]
+        [Route("Delete/{id:int}")]
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var rsp = new Utility.Response<bool>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.Delete(id);
             }
             catch (Exception ex)
             {

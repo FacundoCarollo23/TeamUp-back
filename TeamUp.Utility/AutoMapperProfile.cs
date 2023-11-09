@@ -44,7 +44,7 @@ namespace TeamUp.Utility
                 opt => opt.MapFrom(origen => origen.Country.CountryName))
                 .ForMember(des =>
                 des.DateTime,
-                opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy"))
+                opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy HH/m"))
                 );
 
             CreateMap<EventUserDTO, Event>()
@@ -74,7 +74,7 @@ namespace TeamUp.Utility
                opt => opt.MapFrom(origen => origen.Country.CountryName))
                .ForMember(des =>
                des.DateTime,
-               opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy"))
+               opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy H:mm"))
                );
 
             CreateMap<EventDTO, Event>()
@@ -100,7 +100,7 @@ namespace TeamUp.Utility
                opt => opt.MapFrom(origen => origen.User.UserName))
                 .ForMember(des =>
                des.DateTime,
-               opt => opt.MapFrom(origin => origin.DateTime.Value.ToString("dd/MM/yyyy"))
+               opt => opt.MapFrom(origin => origin.DateTime.Value.ToString("dd/MM/yyyy H:mm"))
                );
 
             CreateMap<EventsCommentDTO, EventsComment>()

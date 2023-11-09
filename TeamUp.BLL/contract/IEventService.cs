@@ -7,8 +7,8 @@ namespace TeamUp.BLL.contract
     {
         Task<List<EventDTO>> List();
         Task<EventDTO> GetById(int id);
-        Task<EventUserDTO> Create(EventUserDTO model);
-        Task<bool> Edit(EventUserDTO model);
+        Task<EventDTO> Create(EventDTO model);
+        Task<bool> Edit(EventDTO model);
         Task<bool> Delete(int id);
     }
 }

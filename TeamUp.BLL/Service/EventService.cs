@@ -18,26 +18,6 @@ namespace TeamUp.DAL.Repository
             _mapper = mapper;
         }
 
-        public Task<EventUserDTO> Create(EventUserDTO model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Edit(EventUserDTO model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<EventDTO> GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<EventDTO>> List()
         {
             try
@@ -55,5 +35,58 @@ namespace TeamUp.DAL.Repository
                 throw;
             }
         }
+
+        public async Task<EventDTO> Create(EventDTO model)
+        {
+            try
+            {
+                var eventCreate = await _EventRepository.Create(_mapper.Map<Event>(model));
+
+                if (eventCreate.EventId == 0)
+                    throw new TaskCanceledException("No se pudo crear");
+
+                var query = await _EventRepository.Consult(u => u.EventId == eventCreate.EventId);
+
+                return _mapper.Map<EventDTO>(eventCreate);
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var EventFound = await _EventRepository.Obtain(u => u.EventId == id);
+
+                if (EventFound == null)
+                    throw new TaskCanceledException("El evento no existe");
+
+                bool res = await _EventRepository.Delete(EventFound);
+
+                if (!res)
+                    throw new TaskCanceledException("No se pudo eliminar");
+
+                return res;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public Task<bool> Edit(EventDTO model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EventDTO> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
