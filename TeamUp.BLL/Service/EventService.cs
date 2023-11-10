@@ -36,6 +36,25 @@ namespace TeamUp.DAL.Repository
             }
         }
 
+        public async Task<List<EventDTO>> ListRecent()
+        {
+            try
+            {
+                var queryEvent = await _EventRepository.Consult();
+                var listEvent = queryEvent.Include(Country => Country.Country)
+                    .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
+                    .Include(Activity => Activity.Activity)
+                    .OrderBy(a => a.DateTime)
+                    .ToList();
+
+                return _mapper.Map<List<EventDTO>>(listEvent);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<EventDTO> Create(EventDTO model)
         {
             try

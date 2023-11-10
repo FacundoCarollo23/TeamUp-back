@@ -6,6 +6,8 @@ namespace TeamUp.BLL.contract
     public interface IEventService
     {
         Task<List<EventDTO>> List();
+
+        Task<List<EventDTO>> ListRecent();
         Task<EventDTO> GetById(int id);
         Task<EventDTO> Create(EventDTO model);
         Task<bool> Edit(EventDTO model);

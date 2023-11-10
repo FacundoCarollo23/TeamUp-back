@@ -19,7 +19,7 @@ namespace TeamUp.DTO
         public string? UserLastname { get; set; }
 
         //[Required, DataType(DataType.Date), Range(typeof(DateTime), "1/2/1980", DateTime.Today.AddYears(),
-        ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        //ErrorMessage = "Value for {0} must be between {1} and {2}")]
         public string? DateOfBirthText { get; set; }
 
         [EmailAddress]

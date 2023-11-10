@@ -39,6 +39,26 @@ namespace TeamUp.Api.Controllers
             return Ok(rsp);
         }
 
+        [HttpGet]
+        [Route("ListRecent")]
+        public async Task<IActionResult> ListRecent()
+        {
+            var rsp = new Utility.Response<List<EventDTO>>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.ListRecent();
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
         [HttpPost]
         [Route("Create")]
 
