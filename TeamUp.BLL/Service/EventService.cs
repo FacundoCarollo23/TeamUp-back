@@ -44,7 +44,7 @@ namespace TeamUp.DAL.Repository
                 var listEvent = queryEvent.Include(Country => Country.Country)
                     .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
                     .Include(Activity => Activity.Activity)
-                    .OrderBy(a => a.DateTime)
+                    .OrderByDescending(a => a.DateTime)
                     .ToList();
 
                 return _mapper.Map<List<EventDTO>>(listEvent);
