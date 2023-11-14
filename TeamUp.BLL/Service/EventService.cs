@@ -55,7 +55,43 @@ namespace TeamUp.DAL.Repository
             }
         }
 
-        public async Task<EventDTO> Create(EventDTO model)
+        public async Task<List<EventDTO>> ListFeatured()
+        {
+            try
+            {
+                var queryEvent = await _EventRepository.Consult();
+                var listEvent = queryEvent.Include(Country => Country.Country)
+                    .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
+                    .Include(Activity => Activity.Activity)
+                    .OrderBy(a => a.DifficultyLevel)
+                    .ToList();
+
+                return _mapper.Map<List<EventDTO>>(listEvent);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<EventDTO> GetById(int id)
+        {
+            try
+            {
+                var EventFound = await _EventRepository.Obtain(u => u.EventId == id);
+
+                if (EventFound == null)
+                    throw new TaskCanceledException("El evento no existe");
+
+                return _mapper.Map<EventDTO>(EventFound);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<EventDTO> Create(EventUserDTO model)
         {
             try
             {
@@ -102,10 +138,6 @@ namespace TeamUp.DAL.Repository
             throw new NotImplementedException();
         }
 
-        public Task<EventDTO> GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+        
     }
 }

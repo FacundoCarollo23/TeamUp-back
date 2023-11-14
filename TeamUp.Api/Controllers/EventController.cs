@@ -59,10 +59,53 @@ namespace TeamUp.Api.Controllers
             return Ok(rsp);
         }
 
+        [HttpGet]
+        [Route("ListFeatured")]
+        public async Task<IActionResult> ListFeatured()
+        {
+            var rsp = new Utility.Response<List<EventDTO>>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.ListFeatured();
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+
+
+        [HttpGet]
+        [Route("GetById/{id:int}")]
+        
+        public async Task<IActionResult> GetById(int id)
+        {
+            var rsp = new Utility.Response<EventDTO>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.GetById(id);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
         [HttpPost]
         [Route("Create")]
 
-        public async Task<IActionResult> Create([FromBody] EventDTO @event)
+        public async Task<IActionResult> Create([FromBody] EventUserDTO @event)
         {
             var rsp = new Utility.Response<EventDTO>();
 

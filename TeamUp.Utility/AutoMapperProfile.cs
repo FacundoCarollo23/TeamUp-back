@@ -33,31 +33,28 @@ namespace TeamUp.Utility
 
             #region EventUser
             CreateMap<Event, EventUserDTO>()
+               .ForMember(des =>
+               des.DateTime,
+               opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy H:mm"))
+               );
+
+            CreateMap<UsersEvent, EventUserDTO>()
                 .ForMember(des =>
-                des.ActivityText,
-                opt => opt.MapFrom(origen => origen.Activity.ActivityName))
-                .ForMember(des =>
-                des.DifficultyLevelText,
-                opt => opt.MapFrom(origen => origen.DifficultyLevel.DifficultyName))
-                .ForMember(des =>
-                des.CountryText,
-                opt => opt.MapFrom(origen => origen.Country.CountryName))
-                .ForMember(des =>
-                des.DateTime,
-                opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy HH/m"))
+                des.UserId,
+                opt => opt.MapFrom(origin => origin.UserId)
                 );
 
+
             CreateMap<EventUserDTO, Event>()
+                .ForMember(des =>
+                des.DateTime,
+                opt => opt.MapFrom(origin => DateTime.ParseExact(origin.DateTime, "dd/MM/yyyy", new CultureInfo("es-PE")))
+                )
                 .ForMember(destino =>
-                destino.Activity,
-                opt => opt.Ignore())
-                .ForMember(destino =>
-                destino.DifficultyLevel,
-                opt => opt.Ignore())
-                .ForMember(destino =>
-                destino.Country,
+                destino.UsersEvents,
                 opt => opt.Ignore()
                 );
+
 
             #endregion EventUser
 

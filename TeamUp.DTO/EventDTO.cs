@@ -13,17 +13,17 @@ namespace TeamUp.DTO
 
         public int ActivityId { get; set; }
 
-        public string ActivityName { get; set; }
+        public string? ActivityName { get; set; }
         
         public int DifficultyLevelId { get; set; }
 
-        public string DifficultyName { get; set; }
+        public string? DifficultyName { get; set; }
 
         public int? CountryId { get; set; }
 
         public string? CountryName { get; set; }    //recordar agregar la FK en EVENT
 
-        public string? EventName { get; set; }
+        public string EventName { get; set; }
 
         public string? EventDescription { get; set; }
 
