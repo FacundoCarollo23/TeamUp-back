@@ -38,13 +38,6 @@ namespace TeamUp.Utility
                opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy H:mm"))
                );
 
-            CreateMap<UsersEvent, EventUserDTO>()
-                .ForMember(des =>
-                des.UserId,
-                opt => opt.MapFrom(origin => origin.UserId)
-                );
-
-
             CreateMap<EventUserDTO, Event>()
                 .ForMember(des =>
                 des.DateTime,
@@ -55,6 +48,11 @@ namespace TeamUp.Utility
                 opt => opt.Ignore()
                 );
 
+            CreateMap<UsersEvent, EventUserDTO>()
+                .ForMember(des =>
+                des.UserId,
+                opt => opt.MapFrom(origin => origin.UserId)
+                );
 
             #endregion EventUser
 

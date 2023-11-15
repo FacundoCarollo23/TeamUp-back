@@ -10,11 +10,13 @@ namespace TeamUp.DAL.Repository
     public class EventService : IEventService
     {
         private readonly IGenericRepository<Event> _EventRepository;
+        //private readonly IGenericRepository<UsersEvent> _UserEventRepository;
         private readonly IMapper _mapper;
 
         public EventService(IGenericRepository<Event> eventRepository, IMapper mapper)
         {
             _EventRepository = eventRepository;
+            //_UserEventRepository = UserEventRepository;
             _mapper = mapper;
         }
 
@@ -96,6 +98,8 @@ namespace TeamUp.DAL.Repository
             try
             {
                 var eventCreate = await _EventRepository.Create(_mapper.Map<Event>(model));
+
+                //var userEvents = await _UserEventRepository.Create(_mapper.Map<UsersEvent>(model));
 
                 if (eventCreate.EventId == 0)
                     throw new TaskCanceledException("No se pudo crear");

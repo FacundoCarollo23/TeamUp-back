@@ -12,6 +12,8 @@ namespace TeamUp.DTO
 
         public string UserName { get; set; } = null!;
 
-        public string? UserLastname { get; set; }
+        public string UserLastname { get; set; }
+
+        public string Token {  get; set; }
     }
 }

@@ -11,6 +11,8 @@ namespace TeamUp.DTO
     {
         public int EventId { get; set; }
 
+        public int UserId { get; set; }
+
         public int ActivityId { get; set; }
 
         public string? ActivityName { get; set; }
@@ -23,13 +25,13 @@ namespace TeamUp.DTO
 
         public string? CountryName { get; set; }    //recordar agregar la FK en EVENT
 
-        public string EventName { get; set; }
+        public string? EventName { get; set; }
 
         public string? EventDescription { get; set; }
 
         public string? City { get; set; }
 
-        public string DateTime { get; set; }
+        public string? DateTime { get; set; }
 
         //public virtual ICollection<EventsCommentDTO> EventsComments { get; set; } //Ver si necesitamos hacer Mapper.
 

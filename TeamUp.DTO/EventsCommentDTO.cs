@@ -19,9 +19,9 @@ namespace TeamUp.DTO
 
         public string UserIdName { get; set; }    //Matchear el user_id con la tabla USERS para traer el nombre. VER COMO MAPEARLO.
 
-        public string? Comment { get; set; }
+        public string Comment { get; set; }
 
-        public string? DateTime { get; set; } //Hacer una lógica para restar días
+        public string DateTime { get; set; } //Hacer una lógica para restar días
 
     }
 }

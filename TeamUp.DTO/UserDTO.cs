@@ -16,11 +16,11 @@ namespace TeamUp.DTO
         public string UserName { get; set; } = null!;
 
         [Required, MinLength(3), MaxLength(10), RegularExpression(@"^(^[a-zA-Z]+$)")]
-        public string? UserLastname { get; set; }
+        public string UserLastname { get; set; }
 
         //[Required, DataType(DataType.Date), Range(typeof(DateTime), "1/2/1980", DateTime.Today.AddYears(),
         //ErrorMessage = "Value for {0} must be between {1} and {2}")]
-        public string? DateOfBirthText { get; set; }
+        public string DateOfBirthText { get; set; }
 
         [EmailAddress]
         public string Email { get; set; } = null!;

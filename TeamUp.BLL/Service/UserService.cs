@@ -1,20 +1,29 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using TeamUp.BLL.contract;
 using TeamUp.DAL.Interfaces;
 using TeamUp.DTO;
 using TeamUp.Model;
+
 
 namespace TeamUp.BLL.Service
 {
     public class UserService:IUserService
     {
         private readonly IGenericRepository<User> _userRepository;
+        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public UserService(IGenericRepository<User> userRepository, IMapper mapper)
+        public UserService(IGenericRepository<User> userRepository, IConfiguration configuration, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         public async Task<List<UserDTO>> List()
@@ -32,6 +41,35 @@ namespace TeamUp.BLL.Service
             }
         }
 
+        private string GenerarToken(string UserId)
+        {
+            var key = _configuration.GetValue<string>("JwtSettings:key");
+            var keyBytes = Encoding.ASCII.GetBytes(key);
+
+            var claims = new ClaimsIdentity();
+            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, UserId));
+
+            var credencialsToken = new SigningCredentials(
+                new SymmetricSecurityKey(keyBytes),
+                SecurityAlgorithms.HmacSha256Signature
+                );
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = claims,
+                Expires = DateTime.UtcNow.AddMinutes(1),
+                SigningCredentials = credencialsToken
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenConfig = tokenHandler.CreateToken(tokenDescriptor);
+
+            string tokenCreado = tokenHandler.WriteToken(tokenConfig);
+
+            return tokenCreado;
+
+        }
+
         public async Task<SesionDTO> ValidateData(string email, string pass)
         {
             try
@@ -40,10 +78,13 @@ namespace TeamUp.BLL.Service
                 u.Email == email &&
                 u.Password == pass);
 
+
                 if (queryUser.FirstOrDefault() == null)
                     throw new TaskCanceledException("El usuario no existe");
 
                 User returnUser = queryUser.First();
+
+                
 
                 return _mapper.Map<SesionDTO>(returnUser);
 
