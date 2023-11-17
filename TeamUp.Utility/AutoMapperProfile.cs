@@ -83,6 +83,9 @@ namespace TeamUp.Utility
                 destino.Country,
                 opt => opt.Ignore()
                 );
+
+            CreateMap<UsersEvent, EventDTO>()
+                .ReverseMap();
             #endregion Event
 
             #region EventComment

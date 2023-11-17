@@ -84,9 +84,14 @@ namespace TeamUp.BLL.Service
 
                 User returnUser = queryUser.First();
 
-                
+                SesionDTO sesion = new SesionDTO();
 
-                return _mapper.Map<SesionDTO>(returnUser);
+                sesion.UserId = returnUser.UserId;
+                sesion.UserName = returnUser.UserName;
+                sesion.UserLastname = returnUser.UserLastname;
+                sesion.Token = GenerarToken(returnUser.UserId.ToString());
+
+                return _mapper.Map<SesionDTO>(sesion);
 
             }
             catch

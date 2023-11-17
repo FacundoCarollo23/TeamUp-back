@@ -10,13 +10,11 @@ namespace TeamUp.DAL.Repository
     public class EventService : IEventService
     {
         private readonly IGenericRepository<Event> _EventRepository;
-        //private readonly IGenericRepository<UsersEvent> _UserEventRepository;
         private readonly IMapper _mapper;
 
         public EventService(IGenericRepository<Event> eventRepository, IMapper mapper)
         {
             _EventRepository = eventRepository;
-            //_UserEventRepository = UserEventRepository;
             _mapper = mapper;
         }
 
@@ -28,6 +26,7 @@ namespace TeamUp.DAL.Repository
                 var listEvent = queryEvent.Include(Country => Country.Country)
                     .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
                     .Include(Activity => Activity.Activity)
+                    ////.Include(UsersEvent => UsersEvent.UsersEvents)
                     .ToList();
 
                 return _mapper.Map<List<EventDTO>>(listEvent);
@@ -81,7 +80,7 @@ namespace TeamUp.DAL.Repository
             try
             {
                 var EventFound = await _EventRepository.Obtain(u => u.EventId == id);
-
+             
                 if (EventFound == null)
                     throw new TaskCanceledException("El evento no existe");
 
