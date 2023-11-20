@@ -54,6 +54,8 @@ namespace TeamUp.Utility
                 opt => opt.MapFrom(origin => origin.UserId)
                 );
 
+            CreateMap<UsersEvent, UsersContadorDTO>()
+                .ReverseMap();
             #endregion EventUser
 
             #region Event

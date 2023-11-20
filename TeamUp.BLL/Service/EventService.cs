@@ -11,11 +11,13 @@ namespace TeamUp.DAL.Repository
     {
         private readonly IGenericRepository<Event> _EventRepository;
         private readonly IMapper _mapper;
+        private readonly IGenericRepository<UsersEvent> _UsersEventRepository;
 
-        public EventService(IGenericRepository<Event> eventRepository, IMapper mapper)
+        public EventService(IGenericRepository<Event> eventRepository, IMapper mapper, IGenericRepository<UsersEvent> usersEventRepository)
         {
             _EventRepository = eventRepository;
             _mapper = mapper;
+            _UsersEventRepository = usersEventRepository;
         }
 
         public async Task<List<EventDTO>> List()
@@ -98,14 +100,28 @@ namespace TeamUp.DAL.Repository
             {
                 var eventCreate = await _EventRepository.Create(_mapper.Map<Event>(model));
 
-                //var userEvents = await _UserEventRepository.Create(_mapper.Map<UsersEvent>(model));
-
                 if (eventCreate.EventId == 0)
                     throw new TaskCanceledException("No se pudo crear");
 
                 var query = await _EventRepository.Consult(u => u.EventId == eventCreate.EventId);
 
-                return _mapper.Map<EventDTO>(eventCreate);
+                // Creo la asociación del Usuario y Evento en usersEvent
+                var usersEventModel = new UsersContadorDTO();
+
+                usersEventModel.EventId = eventCreate.EventId; // Evento generado
+                usersEventModel.RolId = 0; // Creador
+                usersEventModel.UserId = model.UserId;
+
+                var usersEventReturn = await _UsersEventRepository.Create(_mapper.Map<UsersEvent>(usersEventModel));
+
+                if (usersEventReturn.UserEventId == 0)
+                    throw new TaskCanceledException("Error al crear asociación con el Usuario");
+
+                // Agrego el usuario en una variable nueva para poder usar la estructura de EventDTO
+                var responseModel = _mapper.Map<EventDTO>(eventCreate);
+                responseModel.UserId = model.UserId;
+
+                return responseModel;
 
             }
             catch
