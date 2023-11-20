@@ -25,11 +25,17 @@ namespace TeamUp.DAL.Repository
             try
             {
                 var queryEvent = await _EventRepository.Consult();
+                //var query = await _UsersEventRepository.Consult();
+
+
                 var listEvent = queryEvent.Include(Country => Country.Country)
                     .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
                     .Include(Activity => Activity.Activity)
-                    ////.Include(UsersEvent => UsersEvent.UsersEvents)
+                    //.Include(UsersEvent => UsersEvent.UsersEvents)
                     .ToList();
+
+                //List<EventDTO> events = new List<EventDTO>();
+
 
                 return _mapper.Map<List<EventDTO>>(listEvent);
             }
