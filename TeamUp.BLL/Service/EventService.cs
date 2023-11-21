@@ -83,6 +83,52 @@ namespace TeamUp.DAL.Repository
             }
         }
 
+        public async Task<List<EventDTO>> ListCreatedByUser(int userId)
+        {
+            IQueryable<UsersEvent> tbUsersEvents = await _UsersEventRepository.Consult(u => u.UserId == userId & u.RolId == false);
+            IQueryable<Event> tbEvents = await _EventRepository.Consult();
+
+            try
+            {
+                // Busco los eventos en los que el usuario figura como creador
+                IQueryable<Event> tbEventsCreados = ( from e in tbEvents
+                                                      join ue in tbUsersEvents on e.EventId equals ue.EventId
+                                                      select e).AsQueryable();
+
+
+                var EventsList = tbEventsCreados.ToList();
+
+                return _mapper.Map<List<EventDTO>>(EventsList);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<EventDTO>> ListAcceptedByUser(int userId)
+        {
+            IQueryable<UsersEvent> tbUsersEvents = await _UsersEventRepository.Consult(u => u.UserId == userId & u.RolId == true);
+            IQueryable<Event> tbEvents = await _EventRepository.Consult();
+
+            try
+            {
+                // Busco los eventos en los que el usuario figura como participante
+                IQueryable<Event> tbEventsAceptados = (from e in tbEvents
+                                                     join ue in tbUsersEvents on e.EventId equals ue.EventId
+                                                     select e).AsQueryable();
+
+
+                var EventsList = tbEventsAceptados.ToList();
+
+                return _mapper.Map<List<EventDTO>>(EventsList);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<EventDTO> GetById(int id)
         {
             try

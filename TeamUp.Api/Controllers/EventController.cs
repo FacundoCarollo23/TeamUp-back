@@ -79,6 +79,45 @@ namespace TeamUp.Api.Controllers
             return Ok(rsp);
         }
 
+        [HttpGet]
+        [Route("ListCreatedByUser/{userId:int}")]
+        public async Task<IActionResult> ListCreatedByUser(int userId)
+        {
+            var rsp = new Utility.Response<List<EventDTO>>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.ListCreatedByUser(userId);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+        [HttpGet]
+        [Route("ListAcceptedByUser/{userId:int}")]
+        public async Task<IActionResult> ListAcceptedByUser(int userId)
+        {
+            var rsp = new Utility.Response<List<EventDTO>>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.ListAcceptedByUser(userId);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
 
 
         [HttpGet]
