@@ -139,17 +139,21 @@ namespace TeamUp.DAL.Repository
         {
             try
             {
-                var queryUser = await _UsersEventRepository.Consult(u => u.EventId == id & u.RolId == false);
+                var queryUser = await _UsersEventRepository.Obtain(u => u.EventId == id & u.RolId == false);
 
                 var queryEvent = await _EventRepository.Consult(u => u.EventId == id);
                 var eventFound = queryEvent.Include(Country => Country.Country)
                     .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
                     .Include(Activity => Activity.Activity);
-             
+
+                List<EventDTO> result = _mapper.Map<List<EventDTO>>(eventFound);
+
+                result[0].UserId = queryUser.UserId;
+
                 if (eventFound == null)
                     throw new TaskCanceledException("El evento no existe");
 
-                return _mapper.Map<List<EventDTO>>(eventFound);
+                return _mapper.Map<List<EventDTO>>(result);
             }
             catch
             {
