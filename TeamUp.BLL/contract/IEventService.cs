@@ -10,7 +10,7 @@ namespace TeamUp.BLL.contract
         Task<List<EventDTO>> ListFeatured();
         Task<List<EventDTO>> ListCreatedByUser(int userId);
         Task<List<EventDTO>> ListAcceptedByUser(int userId);
-        Task<EventDTO> GetById(int id);
+        Task<List<EventDTO>> GetById(int id);
         Task<EventDTO> Create(EventUserDTO model);
         Task<bool> Edit(EventDTO model);
         Task<bool> Delete(int id);

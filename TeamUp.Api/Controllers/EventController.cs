@@ -125,7 +125,7 @@ namespace TeamUp.Api.Controllers
         
         public async Task<IActionResult> GetById(int id)
         {
-            var rsp = new Utility.Response<EventDTO>();
+            var rsp = new Utility.Response<List<EventDTO>>();
 
             try
             {

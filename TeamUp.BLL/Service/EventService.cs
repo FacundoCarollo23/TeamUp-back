@@ -97,6 +97,8 @@ namespace TeamUp.DAL.Repository
 
 
                 var EventsList = tbEventsCreados.Include(Country => Country.Country)
+                    .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
+                    .Include(Activity => Activity.Activity)
                     .ToList();
 
                 return _mapper.Map<List<EventDTO>>(EventsList);
@@ -121,6 +123,8 @@ namespace TeamUp.DAL.Repository
 
 
                 var EventsList = tbEventsAceptados.Include(Country => Country.Country)
+                    .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
+                    .Include(Activity => Activity.Activity)
                     .ToList();
 
                 return _mapper.Map<List<EventDTO>>(EventsList);
@@ -131,16 +135,21 @@ namespace TeamUp.DAL.Repository
             }
         }
 
-        public async Task<EventDTO> GetById(int id)
+        public async Task<List<EventDTO>> GetById(int id)
         {
             try
             {
-                var EventFound = await _EventRepository.Obtain(u => u.EventId == id);
+                var queryUser = await _UsersEventRepository.Consult(u => u.EventId == id & u.RolId == false);
+
+                var queryEvent = await _EventRepository.Consult(u => u.EventId == id);
+                var eventFound = queryEvent.Include(Country => Country.Country)
+                    .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
+                    .Include(Activity => Activity.Activity);
              
-                if (EventFound == null)
+                if (eventFound == null)
                     throw new TaskCanceledException("El evento no existe");
 
-                return _mapper.Map<EventDTO>(EventFound);
+                return _mapper.Map<List<EventDTO>>(eventFound);
             }
             catch
             {
