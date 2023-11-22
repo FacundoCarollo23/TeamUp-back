@@ -96,7 +96,8 @@ namespace TeamUp.DAL.Repository
                                                       select e).AsQueryable();
 
 
-                var EventsList = tbEventsCreados.ToList();
+                var EventsList = tbEventsCreados.Include(Country => Country.Country)
+                    .ToList();
 
                 return _mapper.Map<List<EventDTO>>(EventsList);
             }
@@ -119,7 +120,8 @@ namespace TeamUp.DAL.Repository
                                                      select e).AsQueryable();
 
 
-                var EventsList = tbEventsAceptados.ToList();
+                var EventsList = tbEventsAceptados.Include(Country => Country.Country)
+                    .ToList();
 
                 return _mapper.Map<List<EventDTO>>(EventsList);
             }
