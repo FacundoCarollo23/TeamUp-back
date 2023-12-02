@@ -25,7 +25,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _userService.List();
+                rsp.value = await _userService.ListUser();
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _userService.Create(user);
+                rsp.value = await _userService.CreateUser(user);
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _userService.Edit(user);
+                rsp.value = await _userService.EditUser(user);
             }
             catch (Exception ex)
             {
@@ -109,7 +109,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _userService.Delete(id);
+                rsp.value = await _userService.DeleteUser(id);
             }
             catch (Exception ex)
             {

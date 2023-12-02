@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TeamUp.BLL.contract;
 using TeamUp.BLL.Service;
 using TeamUp.DAL.Interfaces;
@@ -28,7 +27,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _eventService.List();
+                rsp.value = await _eventService.ListEvent();
             }
             catch (Exception ex)
             {
@@ -130,7 +129,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _eventService.GetById(id);
+                rsp.value = await _eventService.GetByIdEvent(id);
             }
             catch (Exception ex)
             {
@@ -151,7 +150,28 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _eventService.Create(@event);
+                rsp.value = await _eventService.CreateEvent(@event);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+        [HttpPut]
+        [Route("Edit")]
+
+        public async Task<IActionResult> Edit([FromBody] EventDTO eventEdit)
+        {
+            var rsp = new Utility.Response<bool>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.EditEvent(eventEdit);
             }
             catch (Exception ex)
             {
@@ -172,7 +192,70 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _eventService.Delete(id);
+                rsp.value = await _eventService.DeleteEvent(id);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+        //[HttpPost]
+        //[Route("Add")]
+
+        //public async Task<IActionResult> Add([FromBody] UsersContadorDTO user)
+        //{
+        //    var rsp = new Utility.Response<UsersContadorDTO>();
+
+        //    try
+        //    {
+        //        rsp.status = true;
+        //        rsp.value = await _eventService.addEvent(user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        rsp.status = false;
+        //        rsp.msg = ex.Message;
+        //    }
+
+        //    return Ok(rsp);
+        //}
+
+        [HttpPost]
+        [Route("AddUser/{eventId:int}/{userId:int}")]
+
+        public async Task<IActionResult> Add(int eventId, int userId)
+        {
+            var rsp = new Utility.Response<UsersContadorDTO>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.addEvent(eventId, userId);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+        [HttpDelete]
+        [Route("Remove/{eventId:int}/{userId:int}")]
+
+        public async Task<IActionResult> Remove(int eventId, int userId)
+        {
+            var rsp = new Utility.Response<bool>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.removeEvent(eventId, userId);
             }
             catch (Exception ex)
             {

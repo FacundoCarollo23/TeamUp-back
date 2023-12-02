@@ -9,10 +9,10 @@ namespace TeamUp.BLL.contract
 {
     public interface IUserService
     {
-        Task<List<UserDTO>> List();
+        Task<List<UserDTO>> ListUser();
         Task<SesionDTO> ValidateData(string email, string pass);
-        Task<UserDTO> Create(UserDTO model);
-        Task<bool> Edit(UserDTO model);
-        Task<bool> Delete(int id);
+        Task<UserDTO> CreateUser(UserDTO model);
+        Task<bool> EditUser(UserDTO model);
+        Task<bool> DeleteUser(int id);
     }
 }

@@ -5,14 +5,17 @@ namespace TeamUp.BLL.contract
 {
     public interface IEventService
     {
-        Task<List<EventDTO>> List();
+        Task<List<EventDTO>> ListEvent();
         Task<List<EventDTO>> ListRecent();
         Task<List<EventDTO>> ListFeatured();
         Task<List<EventDTO>> ListCreatedByUser(int userId);
         Task<List<EventDTO>> ListAcceptedByUser(int userId);
-        Task<List<EventDTO>> GetById(int id);
-        Task<EventDTO> Create(EventUserDTO model);
-        Task<bool> Edit(EventDTO model);
-        Task<bool> Delete(int id);
+        Task<List<EventDTO>> GetByIdEvent(int id);
+        Task<EventDTO> CreateEvent(EventUserDTO model);
+        Task<bool> EditEvent(EventDTO model);
+        Task<bool> DeleteEvent(int id);
+        //Task<UsersContadorDTO> addEvent(UsersContadorDTO model);
+        Task<UsersContadorDTO> addEvent(int eventId, int userId);
+        Task<bool> removeEvent(int eventId, int userId);
     }
 }

@@ -4,6 +4,7 @@ using TeamUp.DAL.Interfaces;
 using TeamUp.BLL.contract;
 using TeamUp.DTO;
 using TeamUp.Model;
+using System.Threading.Channels;
 
 namespace TeamUp.DAL.Repository
 {
@@ -20,7 +21,7 @@ namespace TeamUp.DAL.Repository
             _UsersEventRepository = usersEventRepository;
         }
 
-        public async Task<List<EventDTO>> List()
+        public async Task<List<EventDTO>> ListEvent()
         {
             try
             {
@@ -135,7 +136,7 @@ namespace TeamUp.DAL.Repository
             }
         }
 
-        public async Task<List<EventDTO>> GetById(int id)
+        public async Task<List<EventDTO>> GetByIdEvent(int id)
         {
             try
             {
@@ -161,7 +162,7 @@ namespace TeamUp.DAL.Repository
             }
         }
 
-        public async Task<EventDTO> Create(EventUserDTO model)
+        public async Task<EventDTO> CreateEvent(EventUserDTO model)
         {
             try
             {
@@ -197,16 +198,55 @@ namespace TeamUp.DAL.Repository
             }
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> EditEvent(EventDTO model)
         {
             try
             {
-                var EventFound = await _EventRepository.Obtain(u => u.EventId == id);
+                var EventModel = _mapper.Map<Event>(model);
+
+                var EventFound = await _EventRepository.Obtain(u => u.EventId == EventModel.EventId);
 
                 if (EventFound == null)
+                    throw new TaskCanceledException("El evento no Existe");
+
+                EventFound.EventName = EventModel.EventName;
+                EventFound.EventDescription = EventModel.EventDescription;
+                EventFound.DifficultyLevelId = EventModel.DifficultyLevelId;
+                EventFound.ActivityId = EventModel.ActivityId;
+                EventFound.CountryId = EventModel.CountryId;
+                EventFound.City = EventModel.City;
+
+                bool res = await _EventRepository.Edit(EventFound);
+
+                if (!res)
+                    throw new TaskCanceledException("No se pudo editar");
+
+                return res;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> DeleteEvent(int id)
+        {
+            try
+            {
+                var eventFound = await _EventRepository.Obtain(u => u.EventId == id);
+                var usersFound = await _UsersEventRepository.Consult(u => u.EventId == id);
+
+                if (eventFound == null)
                     throw new TaskCanceledException("El evento no existe");
 
-                bool res = await _EventRepository.Delete(EventFound);
+                var listEvent = usersFound.ToList();
+
+                for(int i = 0; i < listEvent.Count; i++)
+                {
+                    await _UsersEventRepository.Delete(listEvent[i]);
+                }
+
+                bool res = await _EventRepository.Delete(eventFound);
 
                 if (!res)
                     throw new TaskCanceledException("No se pudo eliminar");
@@ -219,11 +259,66 @@ namespace TeamUp.DAL.Repository
             }
         }
 
-        public Task<bool> Edit(EventDTO model)
+        //public async Task<UsersContadorDTO> addEvent(UsersContadorDTO model)
+        //{
+        //    try
+        //    {
+        //        var eventParticipant = await _UsersEventRepository.Create(_mapper.Map<UsersEvent>(model));
+
+        //        if (eventParticipant.UserEventId == 0)
+        //            throw new TaskCanceledException("No se pudo crear");
+
+        //        var query = await _UsersEventRepository.Consult(u => u.UserId == eventParticipant.UserId);
+
+        //        return _mapper.Map<UsersContadorDTO>(eventParticipant);
+
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
+
+        public async Task<UsersContadorDTO> addEvent(int eventId, int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var eventParticipant = new UsersContadorDTO();
+                eventParticipant.UserId = userId;
+                eventParticipant.EventId = eventId;
+                eventParticipant.RolId = 1;
+
+                await _UsersEventRepository.Create(_mapper.Map<UsersEvent>(eventParticipant));
+
+                return eventParticipant;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
-        
+
+        public async Task<bool> removeEvent(int eventId, int userId)
+        {
+            try
+            {
+                var userFound = await _UsersEventRepository.Obtain(u => u.EventId == eventId & u.UserId == userId);
+
+                if (userFound == null)
+                    throw new TaskCanceledException("El usuario no existe");
+
+                bool res = await _UsersEventRepository.Delete(userFound);
+
+                if (!res)
+                    throw new TaskCanceledException("No se pudo eliminar");
+
+                return res;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

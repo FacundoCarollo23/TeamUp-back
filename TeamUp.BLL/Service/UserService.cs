@@ -26,7 +26,7 @@ namespace TeamUp.BLL.Service
             _configuration = configuration;
         }
 
-        public async Task<List<UserDTO>> List()
+        public async Task<List<UserDTO>> ListUser()
         {
             try
             {
@@ -100,7 +100,7 @@ namespace TeamUp.BLL.Service
             }
         }
 
-        public async Task<UserDTO> Create(UserDTO model)
+        public async Task<UserDTO> CreateUser(UserDTO model)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace TeamUp.BLL.Service
             }
         }
 
-        public async Task<bool> Edit(UserDTO model)
+        public async Task<bool> EditUser(UserDTO model)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace TeamUp.BLL.Service
             }
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteUser(int id)
         {
             try
             {
