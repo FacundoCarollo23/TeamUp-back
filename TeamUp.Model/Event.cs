@@ -21,6 +21,8 @@ public partial class Event
 
     public DateTime DateTime { get; set; }
 
+    public int? UserCount { get; set; }
+
     public virtual Activity Activity { get; set; } = null!;
 
     public virtual Country? Country { get; set; }

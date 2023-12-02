@@ -49,7 +49,7 @@ public partial class TeamUpContext : DbContext
     {
         modelBuilder.Entity<Activity>(entity =>
         {
-            entity.HasKey(e => e.ActivityId).HasName("PK__ACTIVITI__393F5A45CD642DD3");
+            entity.HasKey(e => e.ActivityId).HasName("PK__ACTIVITI__393F5A45F310DF9B");
 
             entity.ToTable("ACTIVITIES");
 
@@ -62,7 +62,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Challenge>(entity =>
         {
-            entity.HasKey(e => e.ChallengeId).HasName("PK__CHALLENG__F4E71D652C2D78C4");
+            entity.HasKey(e => e.ChallengeId).HasName("PK__CHALLENG__F4E71D65BF79BB9C");
 
             entity.ToTable("CHALLENGES");
 
@@ -95,7 +95,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<ChallengesType>(entity =>
         {
-            entity.HasKey(e => e.ChallengeTypeId).HasName("PK__CHALLENG__B162026957D1B78D");
+            entity.HasKey(e => e.ChallengeTypeId).HasName("PK__CHALLENG__B1620269C10E4FCA");
 
             entity.ToTable("CHALLENGES_TYPES");
 
@@ -112,7 +112,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.CountryId).HasName("PK__COUNTRIE__8036CBAE9A37DDB3");
+            entity.HasKey(e => e.CountryId).HasName("PK__COUNTRIE__8036CBAE8E2E94F2");
 
             entity.ToTable("COUNTRIES");
 
@@ -125,7 +125,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<DifficultyLevel>(entity =>
         {
-            entity.HasKey(e => e.DifficultyLevelId).HasName("PK__DIFFICUL__CC44802DCDCAA80A");
+            entity.HasKey(e => e.DifficultyLevelId).HasName("PK__DIFFICUL__CC44802D212D9FAF");
 
             entity.ToTable("DIFFICULTY_LEVELS");
 
@@ -138,7 +138,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Event>(entity =>
         {
-            entity.HasKey(e => e.EventId).HasName("PK__EVENTS__FD6BEF84A56DE562");
+            entity.HasKey(e => e.EventId).HasName("PK__EVENTS__FD6BEF845CDCD674");
 
             entity.ToTable("EVENTS");
 
@@ -160,6 +160,7 @@ public partial class TeamUpContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Event_Name");
+            entity.Property(e => e.UserCount).HasColumnName("User_Count");
 
             entity.HasOne(d => d.Activity).WithMany(p => p.Events)
                 .HasForeignKey(d => d.ActivityId)
@@ -178,7 +179,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<EventsComment>(entity =>
         {
-            entity.HasKey(e => e.EventCommentId).HasName("PK__EVENTS_C__53A71BA53904E88F");
+            entity.HasKey(e => e.EventCommentId).HasName("PK__EVENTS_C__53A71BA5751F76AB");
 
             entity.ToTable("EVENTS_COMMENTS");
 
@@ -194,7 +195,6 @@ public partial class TeamUpContext : DbContext
 
             entity.HasOne(d => d.Event).WithMany(p => p.EventsComments)
                 .HasForeignKey(d => d.EventId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__EVENTS_CO__Event__71D1E811");
 
             entity.HasOne(d => d.User).WithMany(p => p.EventsComments)
@@ -205,7 +205,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Rate>(entity =>
         {
-            entity.HasKey(e => e.RateId).HasName("PK__RATES__30BADA322B82AC5C");
+            entity.HasKey(e => e.RateId).HasName("PK__RATES__30BADA32A2A732E0");
 
             entity.ToTable("RATES");
 
@@ -219,7 +219,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<RatesEvent>(entity =>
         {
-            entity.HasKey(e => e.RateEventId).HasName("PK__RATES_EV__CDCBCE9FEC737536");
+            entity.HasKey(e => e.RateEventId).HasName("PK__RATES_EV__CDCBCE9F3E9F11D4");
 
             entity.ToTable("RATES_EVENTS");
 
@@ -230,6 +230,7 @@ public partial class TeamUpContext : DbContext
 
             entity.HasOne(d => d.Event).WithMany(p => p.RatesEvents)
                 .HasForeignKey(d => d.EventId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__RATES_EVE__Event__6D0D32F4");
 
             entity.HasOne(d => d.Rate).WithMany(p => p.RatesEvents)
@@ -243,7 +244,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RolId).HasName("PK__ROLES__795EBD49686B682B");
+            entity.HasKey(e => e.RolId).HasName("PK__ROLES__795EBD49284194B6");
 
             entity.ToTable("ROLES");
 
@@ -256,7 +257,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__USERS__206D91700030A12E");
+            entity.HasKey(e => e.UserId).HasName("PK__USERS__206D9170391AB5C8");
 
             entity.ToTable("USERS");
 
@@ -288,7 +289,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<UsersActivity>(entity =>
         {
-            entity.HasKey(e => e.UserActivityId).HasName("PK__USERS_AC__B54649CEFC79EBC3");
+            entity.HasKey(e => e.UserActivityId).HasName("PK__USERS_AC__B54649CECAB4582C");
 
             entity.ToTable("USERS_ACTIVITIES");
 
@@ -309,7 +310,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<UsersChallenge>(entity =>
         {
-            entity.HasKey(e => e.UserChallengeId).HasName("PK__USERS_CH__748D3040D5A59FCE");
+            entity.HasKey(e => e.UserChallengeId).HasName("PK__USERS_CH__748D3040571279A6");
 
             entity.ToTable("USERS_CHALLENGES");
 
@@ -330,7 +331,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<UsersEvent>(entity =>
         {
-            entity.HasKey(e => e.UserEventId).HasName("PK__USERS_EV__4663C063C6760B60");
+            entity.HasKey(e => e.UserEventId).HasName("PK__USERS_EV__4663C06320715D9B");
 
             entity.ToTable("USERS_EVENTS");
 
@@ -341,7 +342,6 @@ public partial class TeamUpContext : DbContext
 
             entity.HasOne(d => d.Event).WithMany(p => p.UsersEvents)
                 .HasForeignKey(d => d.EventId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__USERS_EVE__Event__693CA210");
 
             entity.HasOne(d => d.Rol).WithMany(p => p.UsersEvents)
