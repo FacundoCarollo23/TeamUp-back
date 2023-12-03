@@ -112,7 +112,7 @@ namespace TeamUp.DAL.Repository
 
         public async Task<List<EventDTO>> ListAcceptedByUser(int userId)
         {
-            IQueryable<UsersEvent> tbUsersEvents = await _UsersEventRepository.Consult(u => u.UserId == userId & u.RolId == true);
+            IQueryable<UsersEvent> tbUsersEvents = await _UsersEventRepository.Consult(u => u.UserId == userId); // & u.RolId == true);
             IQueryable<Event> tbEvents = await _EventRepository.Consult();
 
             try
