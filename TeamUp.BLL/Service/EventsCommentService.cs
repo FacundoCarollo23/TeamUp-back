@@ -46,6 +46,26 @@ namespace TeamUp.BLL.Service
             throw new NotImplementedException();
         }
 
+        public async Task<EventsCommentDTO> CreateComment(EventsCommentDTO model)
+        {
+            try
+            {
+                var commentCreate = await _EventsCommentRepository.Create(_mapper.Map<EventsComment>(model));
+
+                if (commentCreate.EventCommentId == 0)
+                    throw new TaskCanceledException("No se pudo crear");
+
+                var query = await _EventsCommentRepository.Consult(u => u.EventCommentId == commentCreate.EventCommentId);
+
+                return _mapper.Map<EventsCommentDTO>(commentCreate);
+            }
+            catch
+            {
+
+                throw;
+            }
+        }
+
         public Task<bool> Delete(int id)
         {
             throw new NotImplementedException();

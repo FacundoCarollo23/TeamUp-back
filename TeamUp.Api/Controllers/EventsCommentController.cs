@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TeamUp.BLL.contract;
 using TeamUp.DAL.Interfaces;
+using TeamUp.DAL.Repository;
 using TeamUp.DTO;
 
 namespace TeamUp.Api.Controllers
@@ -34,5 +35,30 @@ namespace TeamUp.Api.Controllers
 
             return Ok(rsp);
         }
+
+        [HttpPost]
+        [Route("Create")]
+
+        public async Task<IActionResult> Create([FromBody] EventsCommentDTO @comment)
+        {
+            var rsp = new Utility.Response<EventsCommentDTO>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventsCommentService.CreateComment(@comment);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
+
+
+
     }
 }

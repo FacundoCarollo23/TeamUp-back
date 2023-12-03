@@ -15,7 +15,7 @@ namespace TeamUp.BLL.contract
         Task<bool> EditEvent(EventDTO model);
         Task<bool> DeleteEvent(int id);
         //Task<UsersContadorDTO> addEvent(UsersContadorDTO model);
-        Task<UsersContadorDTO> addEvent(int eventId, int userId);
-        Task<bool> removeEvent(int eventId, int userId);
+        Task<UsersContadorDTO> addUserToEvent(int eventId, int userId);
+        Task<bool> removeUserFromEvent(int eventId, int userId);
     }
 }

@@ -241,10 +241,10 @@ namespace TeamUp.DAL.Repository
 
                 var listEvent = usersFound.ToList();
 
-                for(int i = 0; i < listEvent.Count; i++)
-                {
-                    await _UsersEventRepository.Delete(listEvent[i]);
-                }
+                //for(int i = 0; i < listEvent.Count; i++)
+                //{
+                //    await _UsersEventRepository.Delete(listEvent[i]);
+                //}
 
                 bool res = await _EventRepository.Delete(eventFound);
 
@@ -279,16 +279,30 @@ namespace TeamUp.DAL.Repository
         //    }
         //}
 
-        public async Task<UsersContadorDTO> addEvent(int eventId, int userId)
+        public async Task<UsersContadorDTO> addUserToEvent(int eventId, int userId)
         {
             try
             {
+                // Creo el modelo para el nuevo participante del evento en USERS_EVENTS
                 var eventParticipant = new UsersContadorDTO();
                 eventParticipant.UserId = userId;
                 eventParticipant.EventId = eventId;
                 eventParticipant.RolId = 1;
 
                 await _UsersEventRepository.Create(_mapper.Map<UsersEvent>(eventParticipant));
+
+                // Agrego uno al contador de usuarios de este evento específico en EVENTS
+                var Event = await _EventRepository.Obtain(u => u.EventId == eventId);
+
+                if (Event == null)
+                    throw new TaskCanceledException("Error al identificar el evento");
+
+                Event.UserCount++;
+
+                bool res = await _EventRepository.Edit(Event);
+
+                if (!res)
+                    throw new TaskCanceledException("No se pudo agregar el participante al evento");
 
                 return eventParticipant;
             }
@@ -299,10 +313,11 @@ namespace TeamUp.DAL.Repository
         }
 
 
-        public async Task<bool> removeEvent(int eventId, int userId)
+        public async Task<bool> removeUserFromEvent(int eventId, int userId)
         {
             try
             {
+                // Busco el usuario y lo elimino de USERS_EVENTS
                 var userFound = await _UsersEventRepository.Obtain(u => u.EventId == eventId & u.UserId == userId);
 
                 if (userFound == null)
@@ -312,6 +327,19 @@ namespace TeamUp.DAL.Repository
 
                 if (!res)
                     throw new TaskCanceledException("No se pudo eliminar");
+
+                // Resto uno al contador de usuarios de este evento específico en EVENTS
+                var Event = await _EventRepository.Obtain(u => u.EventId == eventId);
+
+                if (Event == null)
+                    throw new TaskCanceledException("Error al identificar el evento");
+
+                Event.UserCount--;
+
+                bool res_event = await _EventRepository.Edit(Event);
+
+                if (!res_event)
+                    throw new TaskCanceledException("No se pudo bajar al participante del evento");
 
                 return res;
             }
