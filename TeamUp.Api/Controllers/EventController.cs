@@ -225,7 +225,7 @@ namespace TeamUp.Api.Controllers
         //}
 
         [HttpPost]
-        [Route("AddUser/{eventId:int}/{userId:int}")]
+        [Route("addToEvent/{eventId:int}/{userId:int}")]
 
         public async Task<IActionResult> Add(int eventId, int userId)
         {
@@ -234,7 +234,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _eventService.addEvent(eventId, userId);
+                rsp.value = await _eventService.addUserToEvent(eventId, userId);
             }
             catch (Exception ex)
             {
@@ -246,7 +246,7 @@ namespace TeamUp.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("Remove/{eventId:int}/{userId:int}")]
+        [Route("RemoveFromEvent/{eventId:int}/{userId:int}")]
 
         public async Task<IActionResult> Remove(int eventId, int userId)
         {
@@ -255,7 +255,7 @@ namespace TeamUp.Api.Controllers
             try
             {
                 rsp.status = true;
-                rsp.value = await _eventService.removeEvent(eventId, userId);
+                rsp.value = await _eventService.removeUserFromEvent(eventId, userId);
             }
             catch (Exception ex)
             {

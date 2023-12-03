@@ -11,6 +11,7 @@ namespace TeamUp.BLL.contract
     {
         Task<List<EventsCommentDTO>> List(int? userId);
         Task<EventsCommentDTO> GetById(int id);
+        Task<EventsCommentDTO> CreateComment(EventsCommentDTO model);
         Task<bool> Delete(int id);
     }
 }
