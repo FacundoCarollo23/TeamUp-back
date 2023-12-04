@@ -19,6 +19,8 @@ public partial class User
 
     public int TrainingLevel { get; set; }
 
+    public string? Alias { get; set; }
+
     public virtual ICollection<EventsComment> EventsComments { get; set; } = new List<EventsComment>();
 
     public virtual ICollection<RatesEvent> RatesEvents { get; set; } = new List<RatesEvent>();

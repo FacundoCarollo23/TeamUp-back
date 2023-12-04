@@ -31,5 +31,7 @@ namespace TeamUp.DTO
 
         public int TrainingLevel { get; set; }
 
+        public string? Alias { get; set; }
+
     }
 }

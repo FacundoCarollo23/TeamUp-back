@@ -89,6 +89,7 @@ namespace TeamUp.BLL.Service
                 sesion.UserId = returnUser.UserId;
                 sesion.UserName = returnUser.UserName;
                 sesion.UserLastname = returnUser.UserLastname;
+                sesion.Alias = returnUser.Alias;
                 sesion.Token = GenerarToken(returnUser.UserId.ToString());
 
                 return _mapper.Map<SesionDTO>(sesion);
@@ -133,6 +134,7 @@ namespace TeamUp.BLL.Service
 
                 userFound.UserName = userModel.UserName;
                 userFound.UserLastname = userModel.UserLastname;
+                userFound.Alias = userModel.Alias;
                 userFound.Password = userModel.Password;
 
                 bool res = await _userRepository.Edit(userFound);

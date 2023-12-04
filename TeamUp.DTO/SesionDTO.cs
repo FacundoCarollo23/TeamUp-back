@@ -14,6 +14,8 @@ namespace TeamUp.DTO
 
         public string? UserLastname { get; set; }
 
+        public string? Alias { get; set; }
+
         public string? Token {  get; set; }
     }
 }

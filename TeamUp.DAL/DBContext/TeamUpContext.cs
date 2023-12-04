@@ -49,7 +49,7 @@ public partial class TeamUpContext : DbContext
     {
         modelBuilder.Entity<Activity>(entity =>
         {
-            entity.HasKey(e => e.ActivityId).HasName("PK__ACTIVITI__393F5A45F310DF9B");
+            entity.HasKey(e => e.ActivityId).HasName("PK__ACTIVITI__393F5A459DF28227");
 
             entity.ToTable("ACTIVITIES");
 
@@ -62,7 +62,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Challenge>(entity =>
         {
-            entity.HasKey(e => e.ChallengeId).HasName("PK__CHALLENG__F4E71D65BF79BB9C");
+            entity.HasKey(e => e.ChallengeId).HasName("PK__CHALLENG__F4E71D650A076EFF");
 
             entity.ToTable("CHALLENGES");
 
@@ -95,7 +95,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<ChallengesType>(entity =>
         {
-            entity.HasKey(e => e.ChallengeTypeId).HasName("PK__CHALLENG__B1620269C10E4FCA");
+            entity.HasKey(e => e.ChallengeTypeId).HasName("PK__CHALLENG__B162026900EC6B71");
 
             entity.ToTable("CHALLENGES_TYPES");
 
@@ -112,7 +112,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.CountryId).HasName("PK__COUNTRIE__8036CBAE8E2E94F2");
+            entity.HasKey(e => e.CountryId).HasName("PK__COUNTRIE__8036CBAEDCF73F91");
 
             entity.ToTable("COUNTRIES");
 
@@ -125,7 +125,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<DifficultyLevel>(entity =>
         {
-            entity.HasKey(e => e.DifficultyLevelId).HasName("PK__DIFFICUL__CC44802D212D9FAF");
+            entity.HasKey(e => e.DifficultyLevelId).HasName("PK__DIFFICUL__CC44802DE1F670B2");
 
             entity.ToTable("DIFFICULTY_LEVELS");
 
@@ -138,7 +138,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Event>(entity =>
         {
-            entity.HasKey(e => e.EventId).HasName("PK__EVENTS__FD6BEF845CDCD674");
+            entity.HasKey(e => e.EventId).HasName("PK__EVENTS__FD6BEF84DEDE8221");
 
             entity.ToTable("EVENTS");
 
@@ -179,7 +179,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<EventsComment>(entity =>
         {
-            entity.HasKey(e => e.EventCommentId).HasName("PK__EVENTS_C__53A71BA5751F76AB");
+            entity.HasKey(e => e.EventCommentId).HasName("PK__EVENTS_C__53A71BA5C8882255");
 
             entity.ToTable("EVENTS_COMMENTS");
 
@@ -205,7 +205,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Rate>(entity =>
         {
-            entity.HasKey(e => e.RateId).HasName("PK__RATES__30BADA32A2A732E0");
+            entity.HasKey(e => e.RateId).HasName("PK__RATES__30BADA32246D0774");
 
             entity.ToTable("RATES");
 
@@ -219,7 +219,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<RatesEvent>(entity =>
         {
-            entity.HasKey(e => e.RateEventId).HasName("PK__RATES_EV__CDCBCE9F3E9F11D4");
+            entity.HasKey(e => e.RateEventId).HasName("PK__RATES_EV__CDCBCE9F22233BD8");
 
             entity.ToTable("RATES_EVENTS");
 
@@ -244,7 +244,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RolId).HasName("PK__ROLES__795EBD49284194B6");
+            entity.HasKey(e => e.RolId).HasName("PK__ROLES__795EBD49303007C9");
 
             entity.ToTable("ROLES");
 
@@ -257,11 +257,14 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__USERS__206D9170391AB5C8");
+            entity.HasKey(e => e.UserId).HasName("PK__USERS__206D9170A31C3DCE");
 
             entity.ToTable("USERS");
 
             entity.Property(e => e.UserId).HasColumnName("User_Id");
+            entity.Property(e => e.Alias)
+                .HasMaxLength(20)
+                .IsUnicode(false);
             entity.Property(e => e.DateOfBirth)
                 .HasColumnType("date")
                 .HasColumnName("Date_Of_Birth");
@@ -289,7 +292,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<UsersActivity>(entity =>
         {
-            entity.HasKey(e => e.UserActivityId).HasName("PK__USERS_AC__B54649CECAB4582C");
+            entity.HasKey(e => e.UserActivityId).HasName("PK__USERS_AC__B54649CE68339CAE");
 
             entity.ToTable("USERS_ACTIVITIES");
 
@@ -310,7 +313,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<UsersChallenge>(entity =>
         {
-            entity.HasKey(e => e.UserChallengeId).HasName("PK__USERS_CH__748D3040571279A6");
+            entity.HasKey(e => e.UserChallengeId).HasName("PK__USERS_CH__748D3040E5D65ABF");
 
             entity.ToTable("USERS_CHALLENGES");
 
@@ -331,7 +334,7 @@ public partial class TeamUpContext : DbContext
 
         modelBuilder.Entity<UsersEvent>(entity =>
         {
-            entity.HasKey(e => e.UserEventId).HasName("PK__USERS_EV__4663C06320715D9B");
+            entity.HasKey(e => e.UserEventId).HasName("PK__USERS_EV__4663C063E29C369C");
 
             entity.ToTable("USERS_EVENTS");
 

@@ -18,14 +18,14 @@ namespace TeamUp.Api.Controllers
 
         [HttpGet]
         [Route("List")]
-        public async Task<IActionResult> List(int userId)
+        public async Task<IActionResult> List(int eventId)
         {
             var rsp = new Utility.Response<List<EventsCommentDTO>>();
 
             try
             {
                 rsp.status = true;
-                rsp.value = await _eventsCommentService.List(userId);
+                rsp.value = await _eventsCommentService.List(eventId);
             }
             catch (Exception ex)
             {
