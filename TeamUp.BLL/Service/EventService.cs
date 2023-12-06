@@ -349,5 +349,27 @@ namespace TeamUp.DAL.Repository
                 throw;
             }
         }
+
+        public async Task<List<EventDTO>> GetByWord(string word)
+        {
+            try
+            {
+                var queryEvent = await _EventRepository.Consult(u => u.EventName.Contains(word));
+
+
+                var listEvent = queryEvent.Include(Country => Country.Country)
+                    .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
+                    .Include(Activity => Activity.Activity)
+                    .ToList();
+
+
+                return _mapper.Map<List<EventDTO>>(listEvent);
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
     }
 }

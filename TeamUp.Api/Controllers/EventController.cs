@@ -118,6 +118,26 @@ namespace TeamUp.Api.Controllers
             return Ok(rsp);
         }
 
+        [HttpGet]
+        [Route("GetByWord/{word}")]
+        public async Task<IActionResult> GetByWord(string word)
+        {
+            var rsp = new Utility.Response<List<EventDTO>>();
+
+            try
+            {
+                rsp.status = true;
+                rsp.value = await _eventService.GetByWord(word);
+            }
+            catch (Exception ex)
+            {
+                rsp.status = false;
+                rsp.msg = ex.Message;
+            }
+
+            return Ok(rsp);
+        }
+
 
         [HttpGet]
         [Route("GetById/{id:int}")]

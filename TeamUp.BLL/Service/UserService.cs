@@ -80,7 +80,7 @@ namespace TeamUp.BLL.Service
 
 
                 if (queryUser.FirstOrDefault() == null)
-                    throw new TaskCanceledException("El usuario no existe");
+                    throw new TaskCanceledException("Contraseña o Usuario no valido");
 
                 User returnUser = queryUser.First();
 

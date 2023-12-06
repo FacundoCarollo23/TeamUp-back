@@ -17,5 +17,7 @@ namespace TeamUp.BLL.contract
         //Task<UsersContadorDTO> addEvent(UsersContadorDTO model);
         Task<UsersContadorDTO> addUserToEvent(int eventId, int userId);
         Task<bool> removeUserFromEvent(int eventId, int userId);
+
+        Task<List<EventDTO>> GetByWord(string word);
     }
 }
