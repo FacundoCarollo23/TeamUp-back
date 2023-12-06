@@ -29,7 +29,9 @@
 
         public string DateTime { get; set; }    //editar solo horario; 
 
-                
+        public int? UserCount { get; set; } // se agrega para poder inicializar el contador al crear un evento
+
+
     }
 }
 

@@ -167,6 +167,9 @@ namespace TeamUp.DAL.Repository
         {
             try
             {
+                // Seteo en 1 el contador de usuarios para evento nuevo
+                model.UserCount = 1;
+
                 var eventCreate = await _EventRepository.Create(_mapper.Map<Event>(model));
 
                 if (eventCreate.EventId == 0)
