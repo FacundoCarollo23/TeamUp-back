@@ -13,12 +13,14 @@ namespace TeamUp.DAL.Repository
         private readonly IGenericRepository<Event> _EventRepository;
         private readonly IMapper _mapper;
         private readonly IGenericRepository<UsersEvent> _UsersEventRepository;
+        private readonly IGenericRepository<User> _UserRepository;
 
-        public EventService(IGenericRepository<Event> eventRepository, IMapper mapper, IGenericRepository<UsersEvent> usersEventRepository)
+        public EventService(IGenericRepository<Event> eventRepository, IMapper mapper, IGenericRepository<UsersEvent> usersEventRepository, IGenericRepository<User> userRepository)
         {
             _EventRepository = eventRepository;
             _mapper = mapper;
             _UsersEventRepository = usersEventRepository;
+            _UserRepository = userRepository;
         }
 
         public async Task<List<EventDTO>> ListEvent()
@@ -142,6 +144,7 @@ namespace TeamUp.DAL.Repository
             try
             {
                 var queryUser = await _UsersEventRepository.Obtain(u => u.EventId == id & u.RolId == false);
+                var dataUser = await _UserRepository.Obtain(u => u.UserId == queryUser.UserId);
 
                 var queryEvent = await _EventRepository.Consult(u => u.EventId == id);
                 var eventFound = queryEvent.Include(Country => Country.Country)
@@ -151,6 +154,7 @@ namespace TeamUp.DAL.Repository
                 List<EventDTO> result = _mapper.Map<List<EventDTO>>(eventFound);
 
                 result[0].UserId = queryUser.UserId;
+                result[0].Alias = dataUser.Alias;
 
                 if (eventFound == null)
                     throw new TaskCanceledException("El evento no existe");

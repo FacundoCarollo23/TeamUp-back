@@ -74,6 +74,16 @@ namespace TeamUp.Utility
                opt => opt.MapFrom(origin => origin.DateTime.ToString("dd/MM/yyyy H:mm"))
                );
 
+            CreateMap<User, EventDTO>()
+                .ForMember(des =>
+                des.Alias,
+                opt => opt.MapFrom(origin => origin.Alias));
+
+            CreateMap<EventDTO, User>()
+                .ForMember(des =>
+                des.Alias,
+                opt => opt.Ignore());
+
             CreateMap<EventDTO, Event>()
                 .ForMember(destino =>
                 destino.Activity,

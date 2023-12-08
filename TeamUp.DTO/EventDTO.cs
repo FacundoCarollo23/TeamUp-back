@@ -13,6 +13,8 @@ namespace TeamUp.DTO
 
         public int UserId { get; set; }
 
+        public string? Alias { get; set; }
+
         public int ActivityId { get; set; }
 
         public string? ActivityName { get; set; }

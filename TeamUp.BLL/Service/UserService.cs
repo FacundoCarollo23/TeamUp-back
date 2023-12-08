@@ -105,7 +105,11 @@ namespace TeamUp.BLL.Service
         {
             try
             {
-                var userCreate = await _userRepository.Create(_mapper.Map<User>(model));
+                var newEvent = _mapper.Map<User>(model);
+
+                newEvent.TrainingLevel = 1;
+
+                var userCreate = await _userRepository.Create(newEvent);
 
                 if (userCreate.UserId == 0)
                     throw new TaskCanceledException("No se pudo crear");

@@ -29,8 +29,6 @@ namespace TeamUp.DTO
         StringLength(15, ErrorMessage = "La contraseña debe tener un mínimo de 8 caracteres y un máximo de 15", MinimumLength = 8)]
         public string Password { get; set; } = null!;
 
-        public int TrainingLevel { get; set; }
-
         public string? Alias { get; set; }
 
     }
