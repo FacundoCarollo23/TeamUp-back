@@ -101,7 +101,11 @@ namespace TeamUp.Utility
                 .ForMember(des =>
                des.DateTime,
                opt => opt.MapFrom(origin => origin.DateTime.Value.ToString("dd/MM/yyyy H:mm"))
-               );
+               )
+                .ForMember(des =>
+                des.UserAlias,
+                opt => opt.MapFrom(origen => origen.User.Alias))
+                ;
 
             CreateMap<EventsCommentDTO, EventsComment>()
                 .ForMember(destino =>

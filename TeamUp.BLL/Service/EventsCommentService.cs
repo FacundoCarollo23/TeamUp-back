@@ -50,6 +50,7 @@ namespace TeamUp.BLL.Service
         {
             try
             {
+
                 var commentCreate = await _EventsCommentRepository.Create(_mapper.Map<EventsComment>(model));
 
                 if (commentCreate.EventCommentId == 0)
@@ -57,7 +58,13 @@ namespace TeamUp.BLL.Service
 
                 var query = await _EventsCommentRepository.Consult(u => u.EventCommentId == commentCreate.EventCommentId);
 
-                return _mapper.Map<EventsCommentDTO>(commentCreate);
+                // vuelco a una lista de un sólo registro los datos que faltan para exponerlos
+                var listNewComment = query.Include(Event => Event.Event)
+                    .Include(User => User.User)
+                    .ToList();
+
+                // devuelvo el mapeo completo del DTO
+                return _mapper.Map<EventsCommentDTO>(listNewComment[0]);
             }
             catch
             {
