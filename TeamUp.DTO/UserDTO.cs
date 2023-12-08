@@ -12,10 +12,10 @@ namespace TeamUp.DTO
 
         public int UserId { get; set; }
 
-        [Required, MinLength(3), MaxLength(20), RegularExpression(@"^(^[a-zA-Z]+$)")]
+        [Required, MinLength(3), MaxLength(20), RegularExpression(@"^(^[a-zA-Z\s]+$)")]
         public string UserName { get; set; } = null!;
 
-        [Required, MinLength(3), MaxLength(20), RegularExpression(@"^(^[a-zA-Z]+$)")]
+        [Required, MinLength(3), MaxLength(20), RegularExpression(@"^(^[a-zA-Z\s]+$)")]
         public string UserLastname { get; set; }
 
         //[Required, DataType(DataType.Date), Range(typeof(DateTime), "1/2/1980", DateTime.Today.AddYears(),

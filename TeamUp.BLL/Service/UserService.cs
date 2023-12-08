@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Common;
@@ -105,6 +106,18 @@ namespace TeamUp.BLL.Service
         {
             try
             {
+                // valido que el mail no se haya utilizado
+                var queryUser = await _userRepository.Consult(u => u.Email == model.Email);
+
+                if (queryUser.Any())
+                    throw new TaskCanceledException("El e-mail ingresado ya existe");
+
+                // valido que el alias no se haya utilizado
+                queryUser = await _userRepository.Consult(u => u.Alias == model.Alias);
+
+                if (queryUser.Any())
+                    throw new TaskCanceledException("El alias ingresado ya existe");
+
                 var newEvent = _mapper.Map<User>(model);
 
                 newEvent.TrainingLevel = 1;
