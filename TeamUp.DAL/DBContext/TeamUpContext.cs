@@ -152,6 +152,9 @@ public partial class TeamUpContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Date_Time");
             entity.Property(e => e.DifficultyLevelId).HasColumnName("Difficulty_Level_Id");
+            entity.Property(e => e.EventCreateDateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("Event_Create_Date_Time");
             entity.Property(e => e.EventDescription)
                 .HasMaxLength(1000)
                 .IsUnicode(false)

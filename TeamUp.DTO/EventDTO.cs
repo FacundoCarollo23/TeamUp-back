@@ -35,6 +35,8 @@ namespace TeamUp.DTO
 
         public string? DateTime { get; set; }
 
+        public string? CreateTime { get; set; }
+
         public int? UserCount { get; set; }
 
         //public virtual ICollection<EventsCommentDTO> EventsComments { get; set; } //Ver si necesitamos hacer Mapper.

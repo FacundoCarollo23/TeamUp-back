@@ -52,11 +52,11 @@ namespace TeamUp.DAL.Repository
         {
             try
             {
-                var queryEvent = await _EventRepository.Consult(u => u.DateTime >= DateTime.Now);
+                var queryEvent = await _EventRepository.Consult();
                 var listEvent = queryEvent.Include(Country => Country.Country)
                     .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
                     .Include(Activity => Activity.Activity)
-                    .OrderBy(a => a.DateTime)
+                    .OrderByDescending(timeEvent => timeEvent.EventCreateDateTime)
                     .ToList();
 
                 return _mapper.Map<List<EventDTO>>(listEvent);
@@ -128,6 +128,7 @@ namespace TeamUp.DAL.Repository
                 var EventsList = tbEventsAceptados.Include(Country => Country.Country)
                     .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
                     .Include(Activity => Activity.Activity)
+                    .OrderByDescending(DateTime => DateTime.DateTime)
                     .ToList();
 
                 return _mapper.Map<List<EventDTO>>(EventsList);
@@ -174,7 +175,11 @@ namespace TeamUp.DAL.Repository
                 // Seteo en 1 el contador de usuarios para evento nuevo
                 model.UserCount = 1;
 
-                var eventCreate = await _EventRepository.Create(_mapper.Map<Event>(model));
+                var newEvent = _mapper.Map<Event>(model);
+
+                newEvent.EventCreateDateTime = DateTime.Now;
+
+                var eventCreate = await _EventRepository.Create(newEvent);
 
                 if (eventCreate.EventId == 0)
                     throw new TaskCanceledException("No se pudo crear");

@@ -23,6 +23,8 @@ public partial class Event
 
     public int? UserCount { get; set; }
 
+    public DateTime EventCreateDateTime { get; set; }
+
     public virtual Activity Activity { get; set; } = null!;
 
     public virtual Country? Country { get; set; }
