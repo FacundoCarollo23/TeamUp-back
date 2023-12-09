@@ -128,7 +128,7 @@ namespace TeamUp.DAL.Repository
                 var EventsList = tbEventsAceptados.Include(Country => Country.Country)
                     .Include(DifficultyLevel => DifficultyLevel.DifficultyLevel)
                     .Include(Activity => Activity.Activity)
-                    .OrderByDescending(DateTime => DateTime.DateTime)
+                    .OrderByDescending(DateTime => DateTime.EventDateTime)
                     .ToList();
 
                 return _mapper.Map<List<EventDTO>>(EventsList);

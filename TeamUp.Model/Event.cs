@@ -19,11 +19,11 @@ public partial class Event
 
     public string? City { get; set; }
 
-    public DateTime DateTime { get; set; }
-
-    public int? UserCount { get; set; }
+    public DateTime EventDateTime { get; set; }
 
     public DateTime EventCreateDateTime { get; set; }
+
+    public int? UserCount { get; set; }
 
     public virtual Activity Activity { get; set; } = null!;
 
