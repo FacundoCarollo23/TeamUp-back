@@ -31,6 +31,7 @@ namespace TeamUp.BLL.Service
 
                 var listEvent = queryEvent.Include(Event => Event.Event)
                     .Include(User => User.User)
+                    .OrderBy(date => date.DateTime)
                     .ToList();
 
                 return _mapper.Map<List<EventsCommentDTO>>(listEvent);
